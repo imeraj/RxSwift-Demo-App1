@@ -36,3 +36,13 @@ struct Issue: Mappable {
         try body = map.from("body")
     }
 }
+
+struct UserProfile: Mappable {
+    let login: String
+    let id: Int
+    
+    init (map: Mapper) throws {
+        try login = map.from("login")
+        try id = map.from("id")
+    }
+}

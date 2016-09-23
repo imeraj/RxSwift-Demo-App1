@@ -23,7 +23,17 @@ class ViewController: UITableViewController {
             .throttle(0.5, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
     }
+    
+    var latestUserName: Observable<String> {
+        return searchBar
+            .rx_text
+            .map({ $0.lowercaseString})
+            .throttle(0.5, scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+    }
+    
     var issueTrackerModel: IssueTrackerModel!
+    var userInfoModel: UserInfoModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,13 +53,30 @@ class ViewController: UITableViewController {
     func setupRx() {
         provider = RxMoyaProvider<GitHubService>()
         issueTrackerModel = IssueTrackerModel(provider: provider, repositoryName: latestRepositoryName)
-        
+      
         issueTrackerModel
             .trackIssues()
-            .bindTo(tableView.rx_itemsWithCellFactory) { (tableView, row, item) in
-                let cell = tableView.dequeueReusableCellWithIdentifier("issueCell", forIndexPath: NSIndexPath(forRow: row, inSection: 0))
-                cell.textLabel?.text = "[\(String(item.identifier))]: \(item.title)"
-                return cell
+            .subscribeNext({ (issues) in
+                for issue in issues {
+                    print("Issue: \(issue.identifier) \(issue.number) \(issue.title) \(issue.body)")
+                }
+            }).addDisposableTo(disposeBag)
+            
+//            .bindTo(tableView.rx_itemsWithCellFactory) { (tableView, row, item) in
+//                let cell = tableView.dequeueReusableCellWithIdentifier("issueCell", forIndexPath: NSIndexPath(forRow: row, inSection: 0))
+//                cell.textLabel?.text = "[\(String(item.identifier))]: \(item.title)"
+//                return cell
+//            }.addDisposableTo(disposeBag)
+        
+        userInfoModel = UserInfoModel(provider: provider, userName: latestUserName)
+
+        userInfoModel
+            .getUserProfile()
+            .subscribeNext { (profile) in
+                if let userProfile = profile {
+                    print("Profile id: \(userProfile.id)")
+                    print("Profile login: \(userProfile.login)")
+                }
         }.addDisposableTo(disposeBag)
         
         tableView
@@ -58,7 +85,7 @@ class ViewController: UITableViewController {
                 if self.searchBar!.isFirstResponder() == true {
                     self.view.endEditing(true)
                 }
-        }.addDisposableTo(disposeBag)
+            }.addDisposableTo(disposeBag)
     }
 }
 

@@ -16,6 +16,7 @@
 		45B1A5241D7E746800E820B1 /* GitHubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B1A5231D7E746800E820B1 /* GitHubService.swift */; };
 		45B1A5261D7E7C3000E820B1 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B1A5251D7E7C3000E820B1 /* Models.swift */; };
 		45B1A5281D7E7CE300E820B1 /* IssueTrackerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B1A5271D7E7CE300E820B1 /* IssueTrackerModel.swift */; };
+		45B1A52A1D7E87A800E820B1 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B1A5291D7E87A800E820B1 /* UserInfoModel.swift */; };
 		A4DA53FE38EFADDD831168BB /* Pods_RxMoyaExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0E5C8E3E4F2013973A93D6 /* Pods_RxMoyaExample.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		45B1A5231D7E746800E820B1 /* GitHubService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GitHubService.swift; path = ../GitHubService.swift; sourceTree = "<group>"; };
 		45B1A5251D7E7C3000E820B1 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		45B1A5271D7E7CE300E820B1 /* IssueTrackerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueTrackerModel.swift; sourceTree = "<group>"; };
+		45B1A5291D7E87A800E820B1 /* UserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		F9A87ADBB6D379AE7999E157 /* Pods-RxMoyaExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxMoyaExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxMoyaExample/Pods-RxMoyaExample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +82,7 @@
 			children = (
 				45B1A50D1D7E6DB100E820B1 /* AppDelegate.swift */,
 				45B1A50F1D7E6DB100E820B1 /* ViewController.swift */,
+				45B1A5291D7E87A800E820B1 /* UserInfoModel.swift */,
 				45B1A5231D7E746800E820B1 /* GitHubService.swift */,
 				45B1A5251D7E7C3000E820B1 /* Models.swift */,
 				45B1A5271D7E7CE300E820B1 /* IssueTrackerModel.swift */,
@@ -223,6 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45B1A52A1D7E87A800E820B1 /* UserInfoModel.swift in Sources */,
 				45B1A5101D7E6DB100E820B1 /* ViewController.swift in Sources */,
 				45B1A5241D7E746800E820B1 /* GitHubService.swift in Sources */,
 				45B1A5281D7E7CE300E820B1 /* IssueTrackerModel.swift in Sources */,

@@ -7,8 +7,6 @@
 //
 
 import Foundation
-
-import Foundation
 import Moya
 import Mapper
 import Moya_ModelMapper
@@ -26,26 +24,37 @@ struct IssueTrackerModel {
             .flatMapLatest { name -> Observable<Repository?> in
                 print("Name: \(name)")
                 return self.findRepository(name)
+                          .catchError({ (error) -> Observable<Repository?> in
+                                print("Error caught -  \(error)")
+                                return Observable.just(nil)
+                          })
             }
             .flatMapLatest { repository -> Observable<[Issue]?> in
                 guard let repository = repository else { return Observable.just(nil) }
                 
                 print("Repository: \(repository.fullName)")
                 return self.findIssues(repository)
+                          .catchError({ (error) -> Observable<[Issue]?> in
+                                print("Error caught -  \(error)")
+                                return Observable.just(nil)
+                          })
             }
             .replaceNilWith([])
     }
     
     internal func findIssues(repository: Repository) -> Observable<[Issue]?> {
         return self.provider
-            .request(GitHubService.Issues(repositoryFullName: repository.fullName))
-            .debug()
-            .mapArrayOptional(Issue.self)
+                .request(GitHubService.Issues(repositoryFullName: repository.fullName))
+                .filterSuccessfulStatusCodes()
+                .debug()
+                .mapArrayOptional(Issue.self)
     }
     
     internal func findRepository(name: String) -> Observable<Repository?> {
         return self.provider
-                .request(GitHubService.Repo(fullName: name))
+                .request(GitHubService.Repos(username: name))
+                .take(1)
+                .filterSuccessfulStatusCodes()
                 .debug()
                 .mapObjectOptional(Repository.self)
     }

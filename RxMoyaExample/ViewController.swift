@@ -22,6 +22,7 @@ class ViewController: UITableViewController {
             .rx_text
             .throttle(0.5, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
+            .filterEmpty()
     }
     
     var latestUserName: Observable<String> {
@@ -56,28 +57,22 @@ class ViewController: UITableViewController {
       
         issueTrackerModel
             .trackIssues()
-            .subscribeNext({ (issues) in
-                for issue in issues {
-                    print("Issue: \(issue.identifier) \(issue.number) \(issue.title) \(issue.body)")
-                }
-            }).addDisposableTo(disposeBag)
-            
-//            .bindTo(tableView.rx_itemsWithCellFactory) { (tableView, row, item) in
-//                let cell = tableView.dequeueReusableCellWithIdentifier("issueCell", forIndexPath: NSIndexPath(forRow: row, inSection: 0))
-//                cell.textLabel?.text = "[\(String(item.identifier))]: \(item.title)"
-//                return cell
-//            }.addDisposableTo(disposeBag)
+            .bindTo(tableView.rx_itemsWithCellFactory) { (tableView, row, item) in
+                let cell = tableView.dequeueReusableCellWithIdentifier("issueCell", forIndexPath: NSIndexPath(forRow: row, inSection: 0))
+                cell.textLabel?.text = "[\(String(item.identifier))]: \(item.title)"
+                return cell
+            }.addDisposableTo(disposeBag)
         
-        userInfoModel = UserInfoModel(provider: provider, userName: latestUserName)
-
-        userInfoModel
-            .getUserProfile()
-            .subscribeNext { (profile) in
-                if let userProfile = profile {
-                    print("Profile id: \(userProfile.id)")
-                    print("Profile login: \(userProfile.login)")
-                }
-        }.addDisposableTo(disposeBag)
+//        userInfoModel = UserInfoModel(provider: provider, userName: latestUserName)
+//
+//        userInfoModel
+//            .getUserProfile()
+//            .subscribeNext { (profile) in
+//                if let userProfile = profile {
+//                    print("Profile id: \(userProfile.id)")
+//                    print("Profile login: \(userProfile.login)")
+//                }
+//        }.addDisposableTo(disposeBag)
         
         tableView
             .rx_itemSelected

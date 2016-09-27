@@ -21,22 +21,22 @@ struct IssueTrackerModel {
     func trackIssues() -> Observable<[Issue]> {
         return repositoryName
             .observeOn(MainScheduler.instance)
-            .flatMapLatest { name -> Observable<Repository?> in
+            .flatMapLatest { name -> Observable<[Repository]?> in
                 print("Name: \(name)")
                 return self.findRepository(name)
-                          .catchError({ (error) -> Observable<Repository?> in
+                          .catchError({ (error) -> Observable<[Repository]?> in
                                 print("Error caught -  \(error)")
-                                return Observable.just(nil)
+                                return Observable.just([])
                           })
             }
             .flatMapLatest { repository -> Observable<[Issue]?> in
-                guard let repository = repository else { return Observable.just(nil) }
-                
+                guard let repository = repository!.first else { return Observable.just(nil) }
+    
                 print("Repository: \(repository.fullName)")
                 return self.findIssues(repository)
                           .catchError({ (error) -> Observable<[Issue]?> in
                                 print("Error caught -  \(error)")
-                                return Observable.just(nil)
+                                return Observable.just([])
                           })
             }
             .replaceNilWith([])
@@ -50,12 +50,11 @@ struct IssueTrackerModel {
                 .mapArrayOptional(Issue.self)
     }
     
-    internal func findRepository(name: String) -> Observable<Repository?> {
+    internal func findRepository(name: String) -> Observable<[Repository]?> {
         return self.provider
                 .request(GitHubService.Repos(username: name))
-                .take(1)
                 .filterSuccessfulStatusCodes()
                 .debug()
-                .mapObjectOptional(Repository.self)
+                .mapArrayOptional(Repository.self)
     }
 }

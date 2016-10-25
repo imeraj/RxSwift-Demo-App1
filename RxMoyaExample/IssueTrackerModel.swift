@@ -31,10 +31,7 @@ struct IssueTrackerModel {
             }
             .flatMapLatest { repository -> Observable<[Issue]?> in
                 guard let repository = repository else { return Observable.just([]) }
-    
-                
-                
-                
+
                 print("Repository: \(repository.first!.fullName)")
                 return self.findIssues(repository.first!)
                           .catchError({ (error) -> Observable<[Issue]?> in

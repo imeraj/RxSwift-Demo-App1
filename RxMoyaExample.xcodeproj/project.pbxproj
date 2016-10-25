@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4545BE811DBF35D90077360F /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4545BE801DBF35D90077360F /* .swiftlint.yml */; };
 		457A9CF51DB4866100B34777 /* GitHubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457A9CF41DB4866100B34777 /* GitHubService.swift */; };
 		45B1A50E1D7E6DB100E820B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B1A50D1D7E6DB100E820B1 /* AppDelegate.swift */; };
 		45B1A5101D7E6DB100E820B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B1A50F1D7E6DB100E820B1 /* ViewController.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		1B2F98DF84E5C5D92CB75F44 /* Pods-RxMoyaExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxMoyaExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxMoyaExample/Pods-RxMoyaExample.release.xcconfig"; sourceTree = "<group>"; };
 		3D0E5C8E3E4F2013973A93D6 /* Pods_RxMoyaExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxMoyaExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4545BE801DBF35D90077360F /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		457A9CF41DB4866100B34777 /* GitHubService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubService.swift; sourceTree = "<group>"; };
 		45B1A50A1D7E6DB100E820B1 /* RxMoyaExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxMoyaExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45B1A50D1D7E6DB100E820B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 		45B1A5011D7E6DB100E820B1 = {
 			isa = PBXGroup;
 			children = (
+				4545BE801DBF35D90077360F /* .swiftlint.yml */,
 				45B1A5211D7E6FC200E820B1 /* Podfile */,
 				45B1A50C1D7E6DB100E820B1 /* RxMoyaExample */,
 				45B1A50B1D7E6DB100E820B1 /* Products */,
@@ -116,6 +119,7 @@
 				45B1A5081D7E6DB100E820B1 /* Resources */,
 				635F657D1E90371F5892AB99 /* 📦 Embed Pods Frameworks */,
 				F17FDF2AB0E5F39B9A19AD8B /* 📦 Copy Pods Resources */,
+				4545BE821DBF35F80077360F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -164,6 +168,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4545BE811DBF35D90077360F /* .swiftlint.yml in Resources */,
 				45B1A5181D7E6DB100E820B1 /* LaunchScreen.storyboard in Resources */,
 				45B1A5151D7E6DB100E820B1 /* Assets.xcassets in Resources */,
 				45B1A5221D7E6FC200E820B1 /* Podfile in Resources */,
@@ -174,6 +179,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4545BE821DBF35F80077360F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
 		635F657D1E90371F5892AB99 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
